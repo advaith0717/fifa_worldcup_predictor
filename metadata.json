@@ -1,0 +1,6 @@
+{
+  "name": "Belo",
+  "description": "A high-fidelity World Cup 2026 match prediction and bracket simulator powered by a two-stage machine learning and ELO architecture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
