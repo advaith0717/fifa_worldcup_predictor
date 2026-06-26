@@ -538,12 +538,12 @@ export default function UpcomingMatches({
                         <Check className="w-3 h-3" />
                         Completed
                       </span>
-                    ) : m.date === "2026-06-25" ? (
+                    ) : m.date === "2026-06-26" ? (
                       <span className="px-2 py-0.5 bg-orange-100 text-orange-600 rounded-full font-black animate-pulse flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
                         Playing Today
                       </span>
-                    ) : m.date && m.date < "2026-06-25" ? (
+                    ) : m.date && m.date < "2026-06-26" ? (
                       <span className="px-2 py-0.5 bg-slate-200 text-slate-600 rounded-full font-bold">
                         Scheduled
                       </span>
@@ -564,7 +564,7 @@ export default function UpcomingMatches({
                     <div className="flex items-center justify-end gap-2.5 flex-1 min-w-0">
                       <div className="text-right min-w-0">
                         <span className="block text-sm font-bold text-slate-900 truncate">
-                          {homeTeam ? homeTeam.name : m.homePlaceholder || "TBD"}
+                          {homeTeam ? homeTeam.name : "TBH"}
                         </span>
                         {homeTeam && (
                           <span className="text-[10px] font-mono text-slate-400 block">
@@ -604,7 +604,7 @@ export default function UpcomingMatches({
                       </span>
                       <div className="text-left min-w-0">
                         <span className="block text-sm font-bold text-slate-900 truncate">
-                          {awayTeam ? awayTeam.name : m.awayPlaceholder || "TBD"}
+                          {awayTeam ? awayTeam.name : "TBH"}
                         </span>
                         {awayTeam && (
                           <span className="text-[10px] font-mono text-slate-400 block">

@@ -93,7 +93,7 @@ export default function RoadToFinal({
           <div className={`flex items-center justify-between text-xs py-0.5 px-1.5 rounded-md ${homeTeam && isHomePredicted ? "bg-slate-50 font-bold" : "text-slate-500 font-light"}`}>
             <div className="flex items-center gap-1.5 min-w-0">
               <span className="text-sm flex-shrink-0">{homeTeam?.flag || "🏳️"}</span>
-              <span className="truncate">{homeTeam?.name || m.homePlaceholder || "TBD"}</span>
+              <span className="truncate">{homeTeam?.name || "TBH"}</span>
             </div>
             {m.completed && m.homeScore !== null && (
               <span className="font-mono font-bold">{m.homeScore}</span>
@@ -103,7 +103,7 @@ export default function RoadToFinal({
           <div className={`flex items-center justify-between text-xs py-0.5 px-1.5 rounded-md ${awayTeam && !isHomePredicted ? "bg-slate-50 font-bold" : "text-slate-500 font-light"}`}>
             <div className="flex items-center gap-1.5 min-w-0">
               <span className="text-sm flex-shrink-0">{awayTeam?.flag || "🏳️"}</span>
-              <span className="truncate">{awayTeam?.name || m.awayPlaceholder || "TBD"}</span>
+              <span className="truncate">{awayTeam?.name || "TBH"}</span>
             </div>
             {m.completed && m.awayScore !== null && (
               <span className="font-mono font-bold">{m.awayScore}</span>
@@ -205,11 +205,11 @@ export default function RoadToFinal({
         matchId: r32Id,
         getOpponent: (): Team | string => {
           const matchObj = bracket.R32.find(m => m.id === r32Id);
-          if (!matchObj) return "TBD Qualifiers";
-          if (matchObj.homeId === favoriteTeamId) return getTeam(matchObj.awayId) || "TBD";
-          if (matchObj.awayId === favoriteTeamId) return getTeam(matchObj.homeId) || "TBD";
+          if (!matchObj) return "TBH";
+          if (matchObj.homeId === favoriteTeamId) return getTeam(matchObj.awayId) || "TBH";
+          if (matchObj.awayId === favoriteTeamId) return getTeam(matchObj.homeId) || "TBH";
           // If favorite team is not in this slot in simulation, use simulated opponent
-          return getTeam(matchObj.awayId) || matchObj.awayPlaceholder || "TBD Opponent";
+          return getTeam(matchObj.awayId) || "TBH";
         }
       },
       {
@@ -217,9 +217,9 @@ export default function RoadToFinal({
         matchId: r16Id,
         getOpponent: (): Team | string => {
           const parentMatch = bracket.R32.find(m => m.id === parentR32Id);
-          if (!parentMatch) return "TBD Winner Match " + parentR32Id;
+          if (!parentMatch) return "TBH";
           const winnerId = getWinnerOfMatch(parentMatch);
-          return getTeam(winnerId) || parentMatch.awayPlaceholder || "TBD Winner Match " + parentR32Id;
+          return getTeam(winnerId) || "TBH";
         }
       },
       {
@@ -227,9 +227,9 @@ export default function RoadToFinal({
         matchId: qfId,
         getOpponent: (): Team | string => {
           const parentMatch = bracket.R16.find(m => m.id === parentR16Id);
-          if (!parentMatch) return "TBD Winner Match " + parentR16Id;
+          if (!parentMatch) return "TBH";
           const winnerId = getWinnerOfMatch(parentMatch);
-          return getTeam(winnerId) || "TBD Winner Match " + parentR16Id;
+          return getTeam(winnerId) || "TBH";
         }
       },
       {
@@ -237,9 +237,9 @@ export default function RoadToFinal({
         matchId: sfId,
         getOpponent: (): Team | string => {
           const parentMatch = bracket.QF.find(m => m.id === parentQfId);
-          if (!parentMatch) return "TBD Winner Match " + parentQfId;
+          if (!parentMatch) return "TBH";
           const winnerId = getWinnerOfMatch(parentMatch);
-          return getTeam(winnerId) || "TBD Winner Match " + parentQfId;
+          return getTeam(winnerId) || "TBH";
         }
       },
       {
@@ -247,9 +247,9 @@ export default function RoadToFinal({
         matchId: finalId,
         getOpponent: (): Team | string => {
           const parentMatch = bracket.SF.find(m => m.id === parentSfId);
-          if (!parentMatch) return "TBD Winner Match " + parentSfId;
+          if (!parentMatch) return "TBH";
           const winnerId = getWinnerOfMatch(parentMatch);
-          return getTeam(winnerId) || "TBD Winner Match " + parentSfId;
+          return getTeam(winnerId) || "TBH";
         }
       }
     ];
@@ -258,7 +258,7 @@ export default function RoadToFinal({
       isCurrentlyPredictedInR32,
       steps: steps.map((s) => {
         const opp = s.getOpponent();
-        let oppName = "TBD";
+        let oppName = "TBH";
         let oppFlag = "🏳️";
         let oppElo = 0;
         let oppColor = "#cbd5e1";
