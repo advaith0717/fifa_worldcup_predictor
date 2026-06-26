@@ -547,18 +547,18 @@ export default function LandingPage({ onEnterApp }: LandingPageProps) {
                 </p>
               </div>
 
-              {/* Task 4: Contrasting with Google Predictor */}
+              {/* Task 4: Contrasting with Static Predictor */}
               <div className="border-t border-slate-800/80 pt-8 flex flex-col md:flex-row gap-8 items-start">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-3">
                     <Globe className="w-5 h-5 text-indigo-400" />
-                    <span className="text-xs uppercase font-mono font-bold text-indigo-400 tracking-widest">TOURNAMENT CONTINUUM VS. GOOGLE MODEL</span>
+                    <span className="text-xs uppercase font-mono font-bold text-indigo-400 tracking-widest">TOURNAMENT CONTINUUM VS. STATIC MODEL</span>
                   </div>
                   <h3 className="text-xl font-black tracking-tight mb-3 text-white font-display">
-                    How is this different from Google's Match Predictions?
+                    How is this different from Static Match Predictions?
                   </h3>
                   <p className="text-sm text-slate-300 leading-relaxed font-light mb-4">
-                    When you look up a match on Google, their predictor outputs static percentages (e.g., <em>"Team A: 48% Win Chance, Draw: 27%, Team B: 25%"</em>) for that match in isolation. This is what we call an <strong>isolated island model</strong>. It assumes every game occurs in a vacuum, completely disconnected from what happened before or what lies ahead.
+                    When you look up a match online, most standard predictors output static percentages (e.g., <em>"Team A: 48% Win Chance, Draw: 27%, Team B: 25%"</em>) for that match in isolation. This is what we call an <strong>isolated island model</strong>. It assumes every game occurs in a vacuum, completely disconnected from what happened before or what lies ahead.
                   </p>
                   <p className="text-sm text-slate-300 leading-relaxed font-light mb-4">
                     Belo is entirely different. Instead of analyzing matches in isolation, we model the <strong>Tournament Continuum</strong>:
