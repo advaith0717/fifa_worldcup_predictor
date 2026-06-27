@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BracketStage, Match, Team } from "../types";
 import { motion, AnimatePresence } from "motion/react";
 import { Sparkles, Calendar, Play, RotateCcw, AlertCircle, Check, Loader2, X, Info, Trophy, Shield, Users } from "lucide-react";
@@ -37,7 +37,15 @@ export default function UpcomingMatches({
 }: UpcomingMatchesProps) {
   const [stageFilter, setStageFilter] = useState<StageFilter>("all");
   const [selectedGroup, setSelectedGroup] = useState<string>("all");
-  const [showCompleted, setShowCompleted] = useState<boolean>(false);
+  const [showCompleted, setShowCompleted] = useState<boolean>(true);
+
+  // Automatically show completed matches if there are no uncompleted matches left
+  useEffect(() => {
+    const hasUncompleted = matches.some((m) => !m.completed);
+    if (!hasUncompleted) {
+      setShowCompleted(true);
+    }
+  }, [matches]);
   
   // Scoring state
   const [activeScoringMatchId, setActiveScoringMatchId] = useState<number | null>(null);
@@ -564,7 +572,7 @@ export default function UpcomingMatches({
                     <div className="flex items-center justify-end gap-2.5 flex-1 min-w-0">
                       <div className="text-right min-w-0">
                         <span className="block text-sm font-bold text-slate-900 truncate">
-                          {homeTeam ? homeTeam.name : "TBH"}
+                          {homeTeam ? homeTeam.name : (m.homePlaceholder || m.homeId || "TBD")}
                         </span>
                         {homeTeam && (
                           <span className="text-[10px] font-mono text-slate-400 block">
@@ -604,7 +612,7 @@ export default function UpcomingMatches({
                       </span>
                       <div className="text-left min-w-0">
                         <span className="block text-sm font-bold text-slate-900 truncate">
-                          {awayTeam ? awayTeam.name : "TBH"}
+                          {awayTeam ? awayTeam.name : (m.awayPlaceholder || m.awayId || "TBD")}
                         </span>
                         {awayTeam && (
                           <span className="text-[10px] font-mono text-slate-400 block">

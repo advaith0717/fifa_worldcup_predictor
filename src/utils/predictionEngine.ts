@@ -626,12 +626,22 @@ export function simulateBracket(
       return m.homeId; // fallback
     }
     // Return predicted winner
-    return m.predictedWinnerId === "DRAW" ? m.homeId : m.predictedWinnerId;
+    if (m.predictedWinnerId && m.predictedWinnerId !== "TBD" && m.predictedWinnerId !== "DRAW") {
+      return m.predictedWinnerId;
+    }
+    const homeTeam = teams.find((t) => t.id === m.homeId);
+    const awayTeam = teams.find((t) => t.id === m.awayId);
+    if (homeTeam && awayTeam) {
+      return homeTeam.elo >= awayTeam.elo ? m.homeId : m.awayId;
+    }
+    return `Winner Match ${m.id}`;
   };
 
   const getLoserOfMatch = (m: Match): string => {
     const winnerId = getWinnerOfMatch(m);
-    return m.homeId === winnerId ? m.awayId : m.homeId;
+    if (winnerId === m.homeId) return m.awayId;
+    if (winnerId === m.awayId) return m.homeId;
+    return `Loser Match ${m.id}`;
   };
 
   // 1. Resolve Round of 16 (8 matches, ID 89 to 96)

@@ -49,7 +49,15 @@ export default function RoadToFinal({
       }
       return m.homeId;
     }
-    return m.predictedWinnerId === "DRAW" ? m.homeId : m.predictedWinnerId;
+    if (m.predictedWinnerId && m.predictedWinnerId !== "TBD" && m.predictedWinnerId !== "DRAW") {
+      return m.predictedWinnerId;
+    }
+    const homeTeam = getTeam(m.homeId);
+    const awayTeam = getTeam(m.awayId);
+    if (homeTeam && awayTeam) {
+      return homeTeam.elo >= awayTeam.elo ? m.homeId : m.awayId;
+    }
+    return `Winner Match ${m.id}`;
   };
 
   const getPredictionConfidence = (m: Match): number => {
@@ -93,7 +101,7 @@ export default function RoadToFinal({
           <div className={`flex items-center justify-between text-xs py-0.5 px-1.5 rounded-md ${homeTeam && isHomePredicted ? "bg-slate-50 font-bold" : "text-slate-500 font-light"}`}>
             <div className="flex items-center gap-1.5 min-w-0">
               <span className="text-sm flex-shrink-0">{homeTeam?.flag || "🏳️"}</span>
-              <span className="truncate">{homeTeam?.name || "TBH"}</span>
+              <span className="truncate">{homeTeam?.name || m.homePlaceholder || m.homeId || "TBD"}</span>
             </div>
             {m.completed && m.homeScore !== null && (
               <span className="font-mono font-bold">{m.homeScore}</span>
@@ -103,7 +111,7 @@ export default function RoadToFinal({
           <div className={`flex items-center justify-between text-xs py-0.5 px-1.5 rounded-md ${awayTeam && !isHomePredicted ? "bg-slate-50 font-bold" : "text-slate-500 font-light"}`}>
             <div className="flex items-center gap-1.5 min-w-0">
               <span className="text-sm flex-shrink-0">{awayTeam?.flag || "🏳️"}</span>
-              <span className="truncate">{awayTeam?.name || "TBH"}</span>
+              <span className="truncate">{awayTeam?.name || m.awayPlaceholder || m.awayId || "TBD"}</span>
             </div>
             {m.completed && m.awayScore !== null && (
               <span className="font-mono font-bold">{m.awayScore}</span>
@@ -206,10 +214,10 @@ export default function RoadToFinal({
         getOpponent: (): Team | string => {
           const matchObj = bracket.R32.find(m => m.id === r32Id);
           if (!matchObj) return "TBH";
-          if (matchObj.homeId === favoriteTeamId) return getTeam(matchObj.awayId) || "TBH";
-          if (matchObj.awayId === favoriteTeamId) return getTeam(matchObj.homeId) || "TBH";
+          if (matchObj.homeId === favoriteTeamId) return getTeam(matchObj.awayId) || matchObj.awayPlaceholder || matchObj.awayId || "TBH";
+          if (matchObj.awayId === favoriteTeamId) return getTeam(matchObj.homeId) || matchObj.homePlaceholder || matchObj.homeId || "TBH";
           // If favorite team is not in this slot in simulation, use simulated opponent
-          return getTeam(matchObj.awayId) || "TBH";
+          return getTeam(matchObj.awayId) || matchObj.awayPlaceholder || matchObj.awayId || "TBH";
         }
       },
       {
@@ -219,7 +227,7 @@ export default function RoadToFinal({
           const parentMatch = bracket.R32.find(m => m.id === parentR32Id);
           if (!parentMatch) return "TBH";
           const winnerId = getWinnerOfMatch(parentMatch);
-          return getTeam(winnerId) || "TBH";
+          return getTeam(winnerId) || winnerId || "TBH";
         }
       },
       {
@@ -229,7 +237,7 @@ export default function RoadToFinal({
           const parentMatch = bracket.R16.find(m => m.id === parentR16Id);
           if (!parentMatch) return "TBH";
           const winnerId = getWinnerOfMatch(parentMatch);
-          return getTeam(winnerId) || "TBH";
+          return getTeam(winnerId) || winnerId || "TBH";
         }
       },
       {
@@ -239,7 +247,7 @@ export default function RoadToFinal({
           const parentMatch = bracket.QF.find(m => m.id === parentQfId);
           if (!parentMatch) return "TBH";
           const winnerId = getWinnerOfMatch(parentMatch);
-          return getTeam(winnerId) || "TBH";
+          return getTeam(winnerId) || winnerId || "TBH";
         }
       },
       {
@@ -249,7 +257,7 @@ export default function RoadToFinal({
           const parentMatch = bracket.SF.find(m => m.id === parentSfId);
           if (!parentMatch) return "TBH";
           const winnerId = getWinnerOfMatch(parentMatch);
-          return getTeam(winnerId) || "TBH";
+          return getTeam(winnerId) || winnerId || "TBH";
         }
       }
     ];
