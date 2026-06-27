@@ -5,7 +5,7 @@
 
 import React, { useState } from "react";
 import { generateModelMetricsLog } from "../utils/predictionEngine";
-import { Cpu, Flame, LineChart, Code, ShieldCheck, HelpCircle, ArrowRight } from "lucide-react";
+import { Cpu, Flame, LineChart, Code, ShieldCheck, HelpCircle, ArrowRight, Share2, Copy, Check } from "lucide-react";
 
 interface FeatureCardProps {
   key?: any;
@@ -35,7 +35,8 @@ function FeatureCard({ name, category, desc, weight }: FeatureCardProps) {
 }
 
 export default function ModelInfo() {
-  const [activeTab, setActiveTab] = useState<"math" | "features" | "metrics">("math");
+  const [activeTab, setActiveTab] = useState<"math" | "features" | "metrics" | "linkedin">("math");
+  const [copied, setCopied] = useState<boolean>(false);
   
   const completedMatchesCount = 0; // standard base
   const logs = generateModelMetricsLog(completedMatchesCount);
@@ -98,24 +99,34 @@ export default function ModelInfo() {
       </div>
 
       {/* Model Section navigation */}
-      <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200/60 w-full">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200/60 w-full">
         <button
           onClick={() => setActiveTab("math")}
-          className={`flex-1 px-4 py-2 rounded-md text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeTab === "math" ? "bg-white text-slate-900 shadow-xs font-bold" : "text-slate-500 hover:text-slate-800"}`}
+          className={`px-3 py-2 rounded-md text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer text-center ${activeTab === "math" ? "bg-white text-slate-900 shadow-xs font-bold" : "text-slate-500 hover:text-slate-800"}`}
         >
           Model Math & ELO
         </button>
         <button
           onClick={() => setActiveTab("features")}
-          className={`flex-1 px-4 py-2 rounded-md text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeTab === "features" ? "bg-white text-slate-900 shadow-xs font-bold" : "text-slate-500 hover:text-slate-800"}`}
+          className={`px-3 py-2 rounded-md text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer text-center ${activeTab === "features" ? "bg-white text-slate-900 shadow-xs font-bold" : "text-slate-500 hover:text-slate-800"}`}
         >
-          29 Feature Dictionary
+          29 Features
         </button>
         <button
           onClick={() => setActiveTab("metrics")}
-          className={`flex-1 px-4 py-2 rounded-md text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeTab === "metrics" ? "bg-white text-slate-900 shadow-xs font-bold" : "text-slate-500 hover:text-slate-800"}`}
+          className={`px-3 py-2 rounded-md text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer text-center ${activeTab === "metrics" ? "bg-white text-slate-900 shadow-xs font-bold" : "text-slate-500 hover:text-slate-800"}`}
         >
-          Learning logs Chart
+          Learning Logs
+        </button>
+        <button
+          onClick={() => {
+            setActiveTab("linkedin");
+            setCopied(false);
+          }}
+          className={`px-3 py-2 rounded-md text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer text-center flex items-center justify-center gap-1 ${activeTab === "linkedin" ? "bg-[#0077b5] text-white shadow-xs font-bold" : "text-slate-500 hover:text-slate-800"}`}
+        >
+          <Share2 className="w-3.5 h-3.5" />
+          LinkedIn Post
         </button>
       </div>
 
@@ -313,6 +324,105 @@ export default function ModelInfo() {
                 <div className="flex items-center gap-1.5">
                   <span className="w-3 h-[2px] bg-slate-600 border-dashed border-t rounded-full inline-block" />
                   <span>3-Class Combined model (62.1% Acc)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 4: LinkedIn Announcement Creator */}
+        {activeTab === "linkedin" && (
+          <div className="flex flex-col gap-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Share2 className="w-5 h-5 text-[#0077b5]" />
+                <h3 className="text-base font-bold text-slate-900 uppercase tracking-wide">LinkedIn Project Announcement</h3>
+              </div>
+              <button
+                onClick={() => {
+                  const text = `⚽🏆 Introducing Belo v1.2.0: The Machine Learning Predictor Honoring "The Beautiful Game" 🏆⚽\n\nI’m thrilled to share our latest project: a state-of-the-art FIFA World Cup Simulator and Predictor, powered by our custom ML model, "Belo"!\n\n🤔 What does "Belo" mean?\nThe name "Belo" is a poetic homage to King Pelé, who famously popularized football as "O Jogo Bonito" (The Beautiful Game). "Belo" in Portuguese translates to "Beautiful"—capturing the elegant, unpredictable, and passionate soul of football.\n\n🧠 How Our Machine Learning Model Works:\nStandard machine learning models often struggle with sports forecasting (~55% accuracy) because draws introduce high statistical noise. To conquer this, we built a bookmaker-inspired Two-Stage ML Decomposition:\n1️⃣ Stage 1 (Draw Isolation): Evaluates the exact probability of a draw, isolating high-variance noise.\n2️⃣ Stage 2 (Decisive Vector): Re-evaluates head-to-head metrics to forecast a decisive winner.\n\nIntegrating these stages together boosts our Decisive Match Accuracy to a stellar 80.5% (outperforming standard FiveThirtyEight SPI metrics)!\n\n⚡ Key Model Features:\n• 29-Feature Signal Matrix: Trained on 49,477 international fixtures, incorporating non-linear ELO differences, squad momentum, rest-day discrepancies, and late-game goal ratios.\n• Real-Time ELO Engine: Simulates and recalculates relative strengths dynamically. Features include a World Cup K-Factor of 60, dynamic goal margin scaling (up to 1.75x), and host-nation advantage boosts (+50 ELO).\n• Live Results Synchronization: Fast-forwards the sandbox to the current live state of the World Cup to test predictions against reality.\n\nCheck out our live simulator and forecast your tournament champion!\n\n#MachineLearning #SportsAnalytics #DataScience #WorldCup2026 #Python #React #PredictiveModeling #Pelé #TheBeautifulGame`;
+                  navigator.clipboard.writeText(text);
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 2500);
+                }}
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${copied ? "bg-emerald-500 text-white" : "bg-[#0077b5] text-white hover:bg-[#006297]"}`}
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5" />
+                    Copied to Clipboard!
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    Copy Post Text
+                  </>
+                )}
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Context Explanation Column */}
+              <div className="lg:col-span-1 flex flex-col gap-4">
+                <div className="bg-slate-50 border border-slate-100 rounded-xl p-4">
+                  <h4 className="text-xs font-mono font-bold text-slate-800 uppercase tracking-wider mb-2">🎓 Word Origin: Belo</h4>
+                  <p className="text-xs text-slate-500 leading-relaxed font-light">
+                    <strong>&ldquo;Belo&rdquo;</strong> is the Portuguese word for <strong>&ldquo;Beautiful&rdquo;</strong>.
+                  </p>
+                  <p className="text-xs text-slate-500 leading-relaxed font-light mt-2">
+                    It is derived directly from the legacy of Brazil's legend <strong>Pelé</strong>, who famously baptized association football as <strong>&ldquo;O Jogo Bonito&rdquo;</strong> (&ldquo;The Beautiful Game&rdquo;). This name encapsulates our pursuit of predicting the tournament elegantly while respecting the romance, passion, and unpredictable magic of the sport.
+                  </p>
+                </div>
+
+                <div className="bg-slate-50 border border-slate-100 rounded-xl p-4">
+                  <h4 className="text-xs font-mono font-bold text-slate-800 uppercase tracking-wider mb-2">📈 ML Model Impact</h4>
+                  <p className="text-xs text-slate-500 leading-relaxed font-light">
+                    Our Two-Stage Decomposition leverages historical data of <strong>49,477 international matches</strong>.
+                  </p>
+                  <p className="text-xs text-slate-500 leading-relaxed font-light mt-2">
+                    By first targeting the high volatility of draw outcomes (Stage 1) and then applying decisive home-ground weighted ELO differences (Stage 2), we achieve a <strong>decisive match accuracy of 80.5%</strong>.
+                  </p>
+                </div>
+              </div>
+
+              {/* Live Preview Column */}
+              <div className="lg:col-span-2 flex flex-col">
+                <span className="text-[10px] font-mono text-slate-400 mb-1.5 uppercase tracking-widest font-black">LinkedIn Post Preview</span>
+                <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-5 font-sans relative overflow-hidden flex flex-col gap-3 max-h-[400px] overflow-y-auto">
+                  <div className="flex items-center gap-3 pb-3 border-b border-slate-200/60">
+                    <div className="w-10 h-10 bg-[#ff4800] rounded-full flex items-center justify-center font-bold text-white font-mono text-base tracking-tighter">
+                      WC
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-900 block">World Cup ML Predictor</span>
+                      <span className="text-[9px] text-slate-400 font-mono">1st Degree Connection • Just now</span>
+                    </div>
+                  </div>
+
+                  <div className="text-xs text-slate-700 leading-relaxed whitespace-pre-line font-light font-sans select-all bg-white p-4 rounded-lg border border-slate-100 shadow-inner">
+                    ⚽🏆 <strong>Introducing Belo v1.2.0: The Machine Learning Predictor Honoring &quot;The Beautiful Game&quot;</strong> 🏆⚽
+
+                    I’m thrilled to share our latest project: a state-of-the-art FIFA World Cup Simulator and Predictor, powered by our custom ML model, <strong>&quot;Belo&quot;</strong>! 
+
+                    🤔 <strong>What does &quot;Belo&quot; mean?</strong>
+                    The name &quot;Belo&quot; is a poetic homage to King Pelé, who famously popularized football as <strong>&quot;O Jogo Bonito&quot;</strong> (The Beautiful Game). &quot;Belo&quot; in Portuguese translates to &quot;Beautiful&quot;—capturing the elegant, unpredictable, and passionate soul of football.
+
+                    🧠 <strong>How Our Machine Learning Model Works:</strong>
+                    Standard machine learning models often struggle with sports forecasting (~55% accuracy) because draws introduce high statistical noise. To conquer this, we built a bookmaker-inspired Two-Stage ML Decomposition:
+                    1️⃣ <strong>Stage 1 (Draw Isolation):</strong> Evaluates the exact probability of a draw, isolating high-variance noise.
+                    2️⃣ <strong>Stage 2 (Decisive Vector):</strong> Re-evaluates head-to-head metrics to forecast a decisive winner.
+
+                    Integrating these stages together boosts our Decisive Match Accuracy to a stellar <strong>80.5%</strong> (outperforming standard FiveThirtyEight SPI metrics)! 
+
+                    ⚡ <strong>Key Model Features:</strong>
+                    • <strong>29-Feature Signal Matrix:</strong> Trained on 49,477 international fixtures, incorporating non-linear ELO differences, squad momentum, rest-day discrepancies, and late-game goal ratios.
+                    • <strong>Real-Time ELO Engine:</strong> Simulates and recalculates relative strengths dynamically. Features include a World Cup K-Factor of 60, dynamic goal margin scaling (up to 1.75x), and host-nation advantage boosts (+50 ELO).
+                    • <strong>Live Results Synchronization:</strong> Fast-forwards the sandbox to the current live state of the World Cup to test predictions against reality.
+
+                    Check out our live simulator and forecast your tournament champion!
+
+                    #MachineLearning #SportsAnalytics #DataScience #WorldCup2026 #Python #React #PredictiveModeling #Pelé #TheBeautifulGame
+                  </div>
                 </div>
               </div>
             </div>
