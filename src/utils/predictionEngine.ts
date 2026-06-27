@@ -519,7 +519,12 @@ export function resolveKnockoutMatchups(
       drawProbability: drawP,
       homeWinProbability: homeWinP,
       awayWinProbability: awayWinP,
-      predictedWinnerId: predWinId
+      predictedWinnerId: predWinId,
+      date: cfg.id === 73 || cfg.id === 74 || cfg.id === 75 ? "2026-06-29"
+          : cfg.id === 76 || cfg.id === 77 || cfg.id === 78 ? "2026-06-30"
+          : cfg.id === 79 || cfg.id === 80 || cfg.id === 81 ? "2026-07-01"
+          : cfg.id === 82 || cfg.id === 83 || cfg.id === 84 ? "2026-07-02"
+          : "2026-07-03"
     });
   });
 
@@ -687,7 +692,11 @@ export function simulateBracket(
       drawProbability: drawP,
       homeWinProbability: homeWinP,
       awayWinProbability: awayWinP,
-      predictedWinnerId: predWinId
+      predictedWinnerId: predWinId,
+      date: pair.id === 89 || pair.id === 90 ? "2026-07-04"
+          : pair.id === 91 || pair.id === 92 ? "2026-07-05"
+          : pair.id === 93 || pair.id === 94 ? "2026-07-06"
+          : "2026-07-07"
     });
   });
 
@@ -741,7 +750,8 @@ export function simulateBracket(
       drawProbability: drawP,
       homeWinProbability: homeWinP,
       awayWinProbability: awayWinP,
-      predictedWinnerId: predWinId
+      predictedWinnerId: predWinId,
+      date: pair.id === 97 || pair.id === 98 ? "2026-07-09" : "2026-07-10"
     });
   });
 
@@ -791,7 +801,8 @@ export function simulateBracket(
       drawProbability: drawP,
       homeWinProbability: homeWinP,
       awayWinProbability: awayWinP,
-      predictedWinnerId: predWinId
+      predictedWinnerId: predWinId,
+      date: pair.id === 101 ? "2026-07-14" : "2026-07-15"
     });
   });
 
@@ -835,7 +846,8 @@ export function simulateBracket(
     drawProbability: thirdDrawP,
     homeWinProbability: thirdHomeP,
     awayWinProbability: thirdAwayP,
-    predictedWinnerId: thirdPredWinId
+    predictedWinnerId: thirdPredWinId,
+    date: "2026-07-18"
   });
 
   // Grand Final
@@ -872,7 +884,8 @@ export function simulateBracket(
     drawProbability: finalDrawP,
     homeWinProbability: finalHomeP,
     awayWinProbability: finalAwayP,
-    predictedWinnerId: finalPredWinId
+    predictedWinnerId: finalPredWinId,
+    date: "2026-07-19"
   });
 
   return {

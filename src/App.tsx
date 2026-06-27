@@ -571,7 +571,15 @@ export default function App() {
           <main className="flex-1 py-8 px-2 md:px-4">
             {activeTab === "matches" && (
               <UpcomingMatches
-                matches={groupMatches}
+                matches={[
+                  ...groupMatches,
+                  ...bracket.R32,
+                  ...bracket.R16,
+                  ...bracket.QF,
+                  ...bracket.SF,
+                  ...bracket.third,
+                  ...bracket.final
+                ]}
                 teams={teams}
                 bracket={bracket}
                 onUpdateScore={handleUpdateScore}
