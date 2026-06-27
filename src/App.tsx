@@ -78,9 +78,9 @@ export default function App() {
     let initialTeams = JSON.parse(JSON.stringify(INITIAL_TEAMS));
     let initialMatches = generateGroupMatches(initialTeams);
     
-    const todayStr = "2026-06-26";
+    const todayStr = "2026-06-27";
 
-    // Simulate group matches that occur before June 26, 2026 and are not completed
+    // Simulate group matches that occur before June 27, 2026 and are not completed
     initialMatches = initialMatches.map((m: Match) => {
       if (m.date && m.date < todayStr && !m.completed) {
         const home = initialTeams.find((t: Team) => t.id === m.homeId)!;
@@ -443,15 +443,15 @@ export default function App() {
     setBracket(finalBracket);
   };
 
-  // Fast forward the World Cup prediction sandbox to June 26, 2026 state
+  // Fast forward the World Cup prediction sandbox to June 27, 2026 state
   const handleSyncLiveResults = () => {
     let currentTeams = JSON.parse(JSON.stringify(teams));
     let currentGroupMatches = JSON.parse(JSON.stringify(groupMatches));
     let currentBracket = JSON.parse(JSON.stringify(bracket));
 
-    const todayStr = "2026-06-26";
+    const todayStr = "2026-06-27";
 
-    // Simulate group matches that occur before June 26, 2026 and are not completed
+    // Simulate group matches that occur before June 27, 2026 and are not completed
     currentGroupMatches = currentGroupMatches.map((m: Match) => {
       if (m.date && m.date < todayStr && !m.completed) {
         const home = currentTeams.find((t: Team) => t.id === m.homeId)!;

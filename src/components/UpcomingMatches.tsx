@@ -317,7 +317,7 @@ export default function UpcomingMatches({
               <Info className="w-5 h-5 text-[#ff4800]" />
               <div>
                 <h3 className="text-base font-bold text-slate-900 leading-tight">Tournament Schedule & Stage Forecast</h3>
-                <p className="text-[10px] text-slate-500 font-light mt-0.5">Statistical forecast of the remaining matches and qualification pathways from June 25, 2026.</p>
+                <p className="text-[10px] text-slate-500 font-light mt-0.5">Statistical forecast of the remaining matches and qualification pathways from June 27, 2026.</p>
               </div>
             </div>
 
@@ -327,7 +327,7 @@ export default function UpcomingMatches({
                   <span className="text-[10px] font-mono text-slate-400 uppercase font-black tracking-wider block">Group Stage Matches</span>
                   <span className="text-2xl font-black font-mono text-slate-900 block mt-1.5">{remainingGroupStageCount} <span className="text-xs text-slate-400 font-normal">/ {totalGroupStageOnOrAfterJune25Count} Remaining</span></span>
                 </div>
-                <p className="text-[10px] text-slate-400 mt-2 font-light">Total remaining group stage matches scheduled from June 25 onwards.</p>
+                <p className="text-[10px] text-slate-400 mt-2 font-light">Total remaining group stage matches scheduled from June 27 onwards.</p>
               </div>
 
               <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl flex flex-col justify-between">
@@ -538,12 +538,12 @@ export default function UpcomingMatches({
                         <Check className="w-3 h-3" />
                         Completed
                       </span>
-                    ) : m.date === "2026-06-26" ? (
+                    ) : m.date === "2026-06-27" ? (
                       <span className="px-2 py-0.5 bg-orange-100 text-orange-600 rounded-full font-black animate-pulse flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
                         Playing Today
                       </span>
-                    ) : m.date && m.date < "2026-06-26" ? (
+                    ) : m.date && m.date < "2026-06-27" ? (
                       <span className="px-2 py-0.5 bg-slate-200 text-slate-600 rounded-full font-bold">
                         Scheduled
                       </span>
