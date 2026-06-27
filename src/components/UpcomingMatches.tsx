@@ -106,6 +106,14 @@ export default function UpcomingMatches({
     return true;
   });
 
+  console.log("UpcomingMatches filter diagnostics:", {
+    totalMatches: matches.length,
+    stageFilter,
+    showCompleted,
+    filteredMatchesCount: filteredMatches.length,
+    stagesPresent: Array.from(new Set(matches.map(m => m.stage)))
+  });
+
   const handleOpenScorePanel = (m: Match) => {
     setActiveScoringMatchId(m.id);
     setHomeInput(m.homeScore !== null ? m.homeScore.toString() : "0");
@@ -513,6 +521,9 @@ export default function UpcomingMatches({
             <AlertCircle className="w-8 h-8 text-slate-400 mb-2" />
             <p className="text-sm font-semibold text-slate-600">No matching fixtures found</p>
             <p className="text-xs text-slate-400 font-light mt-1">Try resetting the tournament or modifying filters.</p>
+            <div className="mt-4 p-3 bg-slate-100 border border-slate-200 rounded-lg text-[10px] font-mono text-slate-600 max-w-md text-center">
+              Diagnostics: Matches in prop: {matches.length} (Group: {matches.filter(m => m.stage === "group").length}, R32: {matches.filter(m => m.stage === "R32").length}, R16: {matches.filter(m => m.stage === "R16").length}, QF: {matches.filter(m => m.stage === "QF").length}, SF: {matches.filter(m => m.stage === "SF").length}, Final/3rd: {matches.filter(m => ["third", "final"].includes(m.stage)).length}). ShowCompleted: {showCompleted ? "Yes" : "No"}.
+            </div>
           </div>
         ) : (
           filteredMatches.map((m) => {

@@ -424,7 +424,7 @@ export default function App() {
       stages.forEach((subSt) => {
         if (workingBracket[subSt].length > 0) {
           workingBracket[subSt] = workingBracket[subSt].map((m) => {
-            const simulated = workingBracket[subSt].find((sim) => sim.id === m.id);
+            const simulated = compiled[subSt].find((sim) => sim.id === m.id);
             return simulated || m;
           });
         }
@@ -569,6 +569,18 @@ export default function App() {
 
           {/* Core Content Body with balanced padding */}
           <main className="flex-1 py-8 px-2 md:px-4">
+            {(() => {
+              console.log("App render matches prop prep:", {
+                groupMatches: groupMatches.length,
+                R32: bracket.R32?.length,
+                R16: bracket.R16?.length,
+                QF: bracket.QF?.length,
+                SF: bracket.SF?.length,
+                third: bracket.third?.length,
+                final: bracket.final?.length
+              });
+              return null;
+            })()}
             {activeTab === "matches" && (
               <UpcomingMatches
                 matches={[
